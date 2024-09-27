@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
 
 const TypeRacer = () => {
@@ -10,7 +10,22 @@ const TypeRacer = () => {
   const [endTime, setEndTime] = useState(null);
   const [completed, setCompleted] = useState(false);
 
-  const targetText = "The quick brown fox jumps over the lazy dog.";
+  const targetText = "The quick brown fox jumps over the lazy dog. Okay but what if we have a much longer text spanning multiple lines?";
+
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current.focus();
+
+    const handleClick = () => {
+      inputRef.current.focus();
+    };
+    document.addEventListener('click', handleClick);
+
+    return () => {
+      document.removeEventListener('click', handleClick);
+    };
+  }, []);
 
   const handleInputChange = (e) => {
     const value = e.target.value;
@@ -77,23 +92,24 @@ const TypeRacer = () => {
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="relative w-full max-w-2xl p-4 bg-gray-200 rounded-lg shadow-md">
         <h1 className="mb-4 text-2xl font-semibold text-gray-800">TypeRacer</h1>
-        <div className="relative">
+        <div className="relative flex flex-col space-y-2 w-full">
           <input
             type="text"
             value={inputText}
             onChange={handleInputChange}
-            className="relative z-10 w-full p-2 border-2 border-transparent bg-transparent text-xl font-mono focus:outline-none caret-transparent"
+            ref={inputRef}
+            className="absolute border-transparent bg-transparent text-xl font-mono focus:outline-none caret-transparent"
             autoComplete="off"
             spellCheck="false"
             style={{ color: 'transparent' }}
           />
-          <div className="absolute inset-0 z-10 pointer-events-none p-2 text-xl font-mono">
+          <div className="w-full p-2 text-xl font-mono">
             {generateDisplayText()}
           </div>
         </div>
       </div>
     </div>
-  );
+  )
 };
 
 export default TypeRacer;
