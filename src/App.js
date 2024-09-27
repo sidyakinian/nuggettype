@@ -1,8 +1,14 @@
-import logo from './logo.svg';
-import './App.css';
-
 import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
+import { ReactComponent as NuggetThinks } from './nugget_thinks.svg';
+
+const Bubble = () => {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="w-24 h-24 bg-gray-50 rounded-full shadow-md"></div>
+      </div>
+    );
+  }
 
 const TypeRacer = () => {
   const [inputText, setInputText] = useState("");
@@ -77,7 +83,7 @@ const TypeRacer = () => {
   if (completed) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
-        <div className="w-full max-w-2xl p-4 text-center bg-gray-200 rounded-lg shadow-md">
+        <div className="w-full max-w-2xl p-4 text-center bg-gray-200 rounded-sm shadow-md">
           <h1 className="mb-4 text-2xl font-semibold text-gray-800">
             Typing Completed!
           </h1>
@@ -90,8 +96,9 @@ const TypeRacer = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="relative w-full max-w-2xl p-4 bg-gray-200 rounded-lg shadow-md">
-        <h1 className="mb-4 text-2xl font-semibold text-gray-800">TypeRacer</h1>
+      <NuggetThinks />
+      <div className="relative ml-2 w-full max-w-2xl p-8 bg-gray-50 rounded-xl shadow-md">
+        <h1 className="ml-2 mb-4 text-2xl font-semibold text-gray-800">NuggetType</h1>
         <div className="relative flex flex-col space-y-2 w-full">
           <input
             type="text"
