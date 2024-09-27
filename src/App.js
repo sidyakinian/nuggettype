@@ -33,6 +33,32 @@ const TypeRacer = () => {
     return (numberOfWords / timeInMinutes).toFixed(2);
   };
 
+  const generateDisplayText = () => {
+    let correctPart = "";
+    let incorrectPart = "";
+    let unfinishedPart = "";
+
+    for (let i = 0; i < targetText.length; i++) {
+      const typedChar = inputText[i];
+
+      if (typedChar === undefined) {
+        unfinishedPart += targetText[i];
+      } else if (typedChar === targetText[i] && incorrectPart === "") {
+        correctPart += targetText[i];
+      } else {
+        incorrectPart += targetText[i];
+      }
+    }
+
+    return (
+      <>
+        <span className="text-black">{correctPart}</span>
+        <span className="text-red-500">{incorrectPart}</span>
+        <span className="text-gray-400">{unfinishedPart}</span>
+      </>
+    );
+  };
+
   if (completed) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -54,18 +80,16 @@ const TypeRacer = () => {
         <div className="relative">
           <input
             type="text"
-            value={targetText}
-            className="absolute inset-0 z-0 w-full p-2 border-2 border-transparent bg-transparent text-xl font-mono text-gray-400 pointer-events-none"
-            disabled
-          />
-          <input
-            type="text"
             value={inputText}
             onChange={handleInputChange}
-            className="relative z-10 w-full p-2 border-2 border-transparent bg-transparent text-xl font-mono text-gray-700 focus:outline-none"
+            className="relative z-10 w-full p-2 border-2 border-transparent bg-transparent text-xl font-mono focus:outline-none caret-transparent"
             autoComplete="off"
             spellCheck="false"
+            style={{ color: 'transparent' }}
           />
+          <div className="absolute inset-0 z-10 pointer-events-none p-2 text-xl font-mono">
+            {generateDisplayText()}
+          </div>
         </div>
       </div>
     </div>
