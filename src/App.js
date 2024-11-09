@@ -1,5 +1,5 @@
 import './App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { getHighlightedText, getRandomSentence } from './utils';
 
 const GameState = {
@@ -74,9 +74,22 @@ const App = () => {
   const [sentence, setSentence] = useState(getRandomSentence(sentences));
   const [input, setInput] = useState("");
   
+  useEffect(() => {
+    if (gameState === GameState.NotStarted) {
+      setSentence(getRandomSentence(sentences));
+      setInput("");
+    }
+  }, [gameState]);
+
   const handleInputChange = (e) => {
     const value = e.target.value;
     setInput(value);
+    if (gameState === GameState.NotStarted) {
+      setGameState(GameState.Typing);
+    }
+    if (value === sentence) {
+      setGameState(GameState.Finished);
+    }
   }
 
   const resetGame = () => {
