@@ -11,14 +11,14 @@ body {
   color: #264653;
 }
 
-.beaver-image {
+.nugget-image {
   width: 250px;
   margin-top: 120px;
   margin-bottom: 20px;
   transition: transform 0.3s ease-in-out;
 }
 
-.beaver-image:hover {
+.nugget-image:hover {
   transform: scale(1.1);
 }
 
@@ -27,20 +27,12 @@ h1 {
   color: #4c4c4c;
 }
 
-.time {
+.time-label {
   font-size: 1.5em;
   margin: 10px 0;
   margin-bottom: 20px;
 }
 
-.sentence {
-  font-size: 1.5em;
-  margin-bottom: 20px;
-  color: #d8c7b9; 
-  text-align: left; 
-}
-
-/* Typing Input */
 .typing-input-container {
   position: relative;
   text-align: left; 
@@ -51,7 +43,7 @@ h1 {
   box-sizing: border-box; 
 }
 
-.visible-input {
+.input-field {
   width: 100%;
   font-size: 1.5em; 
   font-family: monospace;
@@ -71,7 +63,7 @@ h1 {
   box-sizing: border-box; 
 }
 
-.input-feedback {
+.typed-text {
   font-size: 1.5em; 
   font-family: monospace;
   white-space: pre;
