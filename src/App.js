@@ -1,4 +1,6 @@
 import './App.css';
+import { useState } from 'react';
+import { getHighlightedText, getRandomSentence } from './utils';
 
 const sentences = [
     "beavers build dams to create safe, stable habitats.",
@@ -32,6 +34,8 @@ const Header = () => {
 };
   
 const TypingInput = ({ input, sentence, handleInputChange }) => {
+  const { correctText, incorrectText, remainingText } = getHighlightedText(sentence, input);
+
   return (
     <div className="typing-input-container">
       <input
@@ -42,20 +46,21 @@ const TypingInput = ({ input, sentence, handleInputChange }) => {
         autoFocus
       />
       <div className="typed-text">
-        <span className="correct-text">correct text</span>
-        <span className="incorrect-text">incorrect text</span>
-        <span className="remaining-text">remaining text</span>
+        <span className="correct-text">{correctText}</span>
+        <span className="incorrect-text">{incorrectText}</span>
+        <span className="remaining-text">{remainingText}</span>
       </div>
     </div>
   );
 };
 
 const App = () => {
-  var input = "";
-  var sentence = sentences[0];
+  const [sentence, setSentence] = useState(getRandomSentence(sentences));
+  const [input, setInput] = useState("");
   
   const handleInputChange = (e) => {
     const value = e.target.value;
+    setInput(value);
   }
 
   return (
