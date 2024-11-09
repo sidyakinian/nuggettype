@@ -71,7 +71,7 @@ const ResetButton = ({ gameState, onClick }) => {
 
 const App = () => {
   const [gameState, setGameState] = useState(GameState.NotStarted);
-  const [sentence, setSentence] = useState(getRandomSentence(sentences));
+  const [sentence, setSentence] = useState("");
   const [input, setInput] = useState("");
   
   useEffect(() => {
