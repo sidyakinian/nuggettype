@@ -16,4 +16,11 @@ const getHighlightedText = (sentence, input) => {
   return { correctText, incorrectText, remainingText };
 };
 
-export { getHighlightedText, getRandomSentence };
+const calculateTypingSpeed = (sentence, time) => {
+    const minutes = time / 60.0;
+    const averageWordLength = 5.0;
+    const numWords = sentence.length / averageWordLength;
+    return numWords / minutes;
+}
+
+export { getHighlightedText, getRandomSentence, calculateTypingSpeed, };
