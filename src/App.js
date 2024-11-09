@@ -55,7 +55,7 @@ const TypingInput = ({ input, sentence, handleInputChange }) => {
 };
 
 const App = () => {
-  const [sentence, setSentence] = useState(getRandomSentence(sentences));
+  const sentence = sentences[0];
   const [input, setInput] = useState("");
   
   const handleInputChange = (e) => {
