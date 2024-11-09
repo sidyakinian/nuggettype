@@ -11,14 +11,31 @@ const sentences = [
     "wetland biodiversity thrives around beaver-made habitats."
   ];
 
-function App() {
-  let time = 0;
+const NuggetImage = ({ className, height }) => {
+  return (
+    <img src="./nugget_types.svg" alt="cute typing beaver" className={className} style={{ height: height }} />
+  );
+};
+  
 
+const Header = () => {
+  return (
+    <div className="header">
+      <div className="image-row">
+        <NuggetImage className="nugget-image" height="100px" />
+        <NuggetImage className="nugget-image main-nugget" height="250px" />
+        <NuggetImage className="nugget-image right-nugget" height="100px" />
+      </div>
+      <h1>NuggetType</h1>
+    </div>
+  );
+};
+  
+
+const App = () => {
   return (
     <div className="app">
-        <img src="./nugget_types.svg" alt="Cute Beaver" className="nugget-image" />
-        <h1>NuggetType</h1>
-        <p className="time-label">Time: {time.toFixed(2)} seconds</p>
+      <Header />
     </div>
   );
 }
