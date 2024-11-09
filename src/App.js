@@ -12,9 +12,13 @@ const sentences = [
   ];
 
 function App() {
+  let time = 0;
+
   return (
-    <div>
-        <h1>Hello!</h1>
+    <div className="app">
+        <img src="./nugget_types.svg" alt="Cute Beaver" className="nugget-image" />
+        <h1>NuggetType</h1>
+        <p className="time-label">Time: {time.toFixed(2)} seconds</p>
     </div>
   );
 }
