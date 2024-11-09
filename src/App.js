@@ -1,6 +1,6 @@
 import './App.css';
 import { useState, useEffect } from 'react';
-import { getHighlightedText, getRandomSentence } from './utils';
+import { calculateTypingSpeed, getHighlightedText, getRandomSentence } from './utils';
 
 const GameState = {
   NotStarted: 'NOT_STARTED',
@@ -26,7 +26,7 @@ const NuggetImage = ({ className, height }) => {
 };
   
 
-const Header = () => {
+const Header = ({ time }) => {
   return (
     <div className="header">
       <div className="image-row">
@@ -35,6 +35,7 @@ const Header = () => {
         <NuggetImage className="nugget-image right-nugget" height="100px" />
       </div>
       <h1>NuggetType</h1>
+      <p className="time-label">Time: {time.toFixed(2)} seconds</p>
     </div>
   );
 };
@@ -61,6 +62,17 @@ const TypingInput = ({ gameState, input, sentence, handleInputChange }) => {
   );
 };
 
+const Results = ({ time, sentence }) => {
+  const speed = calculateTypingSpeed(sentence, time);
+
+  return (
+    <div className="results">
+      <p>Finished! Your time: {time.toFixed(2)} seconds</p>
+      <p>Speed: {speed.toFixed(2)} wpm</p>
+    </div>
+  );
+};
+
 const ResetButton = ({ gameState, onClick }) => {
   return (
     <button onClick={onClick} className="reset-button">
@@ -73,13 +85,31 @@ const App = () => {
   const [gameState, setGameState] = useState(GameState.NotStarted);
   const [sentence, setSentence] = useState(getRandomSentence(sentences));
   const [input, setInput] = useState("");
+  const [time, setTime] = useState(0); 
+  const [startTime, setStartTime] = useState(null); 
   
   useEffect(() => {
-    if (gameState === GameState.NotStarted) {
+    let interval;
+    if (gameState === GameState.Typing) {
+      if (!startTime) {
+        setStartTime(Date.now());
+      }
+
+      interval = setInterval(() => {
+        const elapsedTime = Date.now() - startTime; 
+        setTime(elapsedTime / 1000); 
+      }, 100); 
+
+    } else if (gameState === GameState.Finished) {
+      clearInterval(interval);
+    } else if (gameState === GameState.NotStarted) {
       setSentence(getRandomSentence(sentences));
-      setInput("");
+      setInput('');
+      setTime(0);
+      setStartTime(null); 
     }
-  }, [gameState]);
+    return () => clearInterval(interval);
+  }, [gameState, startTime]);
 
   const handleInputChange = (e) => {
     const value = e.target.value;
@@ -98,13 +128,14 @@ const App = () => {
 
   return (
     <div className="app">
-      <Header />
+      <Header time={time}/>
       <TypingInput
         gameState={gameState}
         input={input} 
         handleInputChange={handleInputChange} 
         sentence={sentence} 
       />
+      {gameState === GameState.Finished && <Results time={time} sentence={sentence} />}
       <ResetButton onClick={resetGame} gameState={gameState} />
     </div>
   );
