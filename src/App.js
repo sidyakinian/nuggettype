@@ -31,11 +31,41 @@ const Header = () => {
   );
 };
   
+const TypingInput = ({ input, sentence, handleInputChange }) => {
+  return (
+    <div className="typing-input-container">
+      <input
+        type="text"
+        value={input}
+        onChange={handleInputChange}
+        className="input-field"
+        autoFocus
+      />
+      <div className="typed-text">
+        <span className="correct-text">correct text</span>
+        <span className="incorrect-text">incorrect text</span>
+        <span className="remaining-text">remaining text</span>
+      </div>
+    </div>
+  );
+};
 
 const App = () => {
+  var input = "";
+  var sentence = sentences[0];
+  
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+  }
+
   return (
     <div className="app">
       <Header />
+      <TypingInput 
+        input={input} 
+        handleInputChange={handleInputChange} 
+        sentence={sentence} 
+      />
     </div>
   );
 }
